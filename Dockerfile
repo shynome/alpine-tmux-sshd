@@ -1,15 +1,17 @@
-FROM alpine:latest
-
-LABEL maintainer="https://github.com/hermsi1337"
+FROM alpine:3.7
 
 ENV ROOT_PASSWORD root
 
-RUN apk update	&& apk upgrade && apk add openssh \
+COPY rootfs/apk_cn_repositories /etc/apk/repositories
+
+RUN apk add --no-cache openssh \
 		&& sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config \
 		&& echo "root:${ROOT_PASSWORD}" | chpasswd \
 		&& rm -rf /var/cache/apk/* /tmp/*
 
-COPY entrypoint.sh /usr/local/bin/
+RUN apk add --no-cache vim 'tmux>2.7'
+
+COPY rootfs/entrypoint.sh /usr/local/bin/
 
 EXPOSE 22
 

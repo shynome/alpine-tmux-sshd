@@ -1,0 +1,9 @@
+#!/bin/sh
+docker run -d \
+  --name tmux-sshd \
+  -h tmux \
+  -v '/root/tmux/data:/root/' \
+  -v 'ssh2:/root/.ssh' \
+  -p 224:22 \
+  -e ROOT_PASSWORD='145zxcvgf!@#123' \
+  shynome/alpine-tmux-sshd

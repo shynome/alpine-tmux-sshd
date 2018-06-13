@@ -1,0 +1,2 @@
+#!/bin/sh
+docker build $(wpd) -t shynome/alpine-tmux-sshd
